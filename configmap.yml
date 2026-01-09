@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: my-config
+  labels: 
+    app: myapp
+    env: devops
+data: 
+  MYSQL_USER: admin 
+  MYSQL_ROOT_PASSWORD: admin
