@@ -1,0 +1,21 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata: 
+  name: myjob
+spec: 
+  schedule: "* * * * *" 
+  jobTemplate:                   
+    spec: 
+      template: 
+        metadata: 
+          name: myjob
+        spec: 
+          containers:
+          - name: c01
+            image: nginx:latest
+            ports: 
+            - name: mynginxport
+              containerPort: 80
+            command: ["/bin/bash", "-c", "echo mayur; sleep 5"]
+          restartPolicy: Never
+
