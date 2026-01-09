@@ -1,0 +1,130 @@
+CREATION OF YAML FILES USING DECLARATIVE APPROACH
+
+way to create:-
+  kubectl create <resource> <name> [flags] --dry-run=client -o yaml > file.yaml
+
+====================================================================================================================================================
+
+1.POD
+
+1.create directly (imperative)
+   kubectl run mypod --image=nginx --port=80 
+
+2.create pod.yml (declarative)
+  kubectl run mypod --image=nginx --port=80 --restart=Never --dry-run=client -o yaml > pod.yml
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+2.DEPLOYMENT
+
+1.create directly
+  kubectl create deployment mydeploy --image=nginx --replicas=3 --port=80
+
+2.create deployment.yaml
+  kubectl create deployment mydeploy --image=nginx --port=80 --replicas=3 --dry-run=client -o yaml > deployment.yaml
+
+3.to edit the deployment
+  1.kubectl edit deployment mydeploy
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+3.SERVICE
+
+1.create directly
+  kubectl expose deployment mydeploy
+
+2.create service.yaml
+  kubectl expose deployment mydeploy --name=myservice --port=80 --target-port=80 --type=ClusterIP --dry-run=client -o yaml > service.yaml
+
+3.to edit the deployment
+  kubectl edit service myservice 
+
+{ Note:- change cluster_IP --> NodePort --> LoadBalancer }
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+4.CONFIGMAP
+
+1.create directly
+  kubectl create configmap myconfig --from-literal=env=dev --from-literal=version=v1
+ 
+2.create configmap.yml
+  kubectl create configmap myconfig --from-literal=env=dev --from-literal=version=v1 --dry-run=client -o yaml > configmap.yaml
+
+3.to edit the configmap
+  kubectl edit cm myconfig
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+5.SECRET
+
+GENERIC_SECRET:-
+
+1.create secret.yaml
+  kubectl create secret generic mysecret --from-literal=username=admin --from-literal=password=admin123 --dry-run=client -o yaml > secret.yaml
+
+2.edit the secret
+  kubectl edit secret mysecret
+
+DOCKER REGISTRY SECRET:-
+
+1.create docker-registry.yaml
+  kubectl create secret docker-registry regcred --docker-username=user --docker-password=pass --docker-email=a@b.com --dry-run=client -o yaml > regcred.yaml
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+6.PERSISTENT_VOLUME_CLAIM
+
+1.kubectl create pvc myvpc --access-modes=ReadWriteOnce --resource=requests.storage=56i --dry-run=client -o yaml > pvc.yaml
+
+2.to edit the pvc
+  kubectl edit pvc mypvc
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+7.SERVICE_ACCOUNT
+
+1.kubectl create serviceaccount mysa --dry-run=client -o yaml > sa.yaml
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+8.NAMESPACE
+
+1.kubectl create namespace dev --dry-run=client -o yaml > namespace.yaml
+
+2.to edit the namespace
+  kubectl edit ns dev
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+9.ROLE
+
+1.kubectl create role pod-reader --verb=get,list,watch --resource=pods --dry-run=client -o yaml > role.yaml
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+10.ROLE_BINDING
+
+1.kubectl create rolebinding read-pods --role=pod-reader --serviceaccount=default:mysa --dry-run=client -o yaml > rolebinding.yaml
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+11.CLUSTER_ROLE
+
+1.kubectl create clusterrole node-reader --verb=get,list --resource=nodes --dry-run=client -o yaml > clusterrole.yaml
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+12.CLUSTER_ROLE_BINDING
+
+1.kubectl create clusterrolebinding read-nodes --clusterrole=node-reader --serviceaccount=default:mysa --dry-run=client -o yaml > clusterrolebinding.yaml
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+1.To learn any object deeply
+
+kubectl explain deployment --recursive
+
+2.kubectl explain ingress.spec.rules
+
+---------------------------------------------------------------------------------------------------------------------------------
