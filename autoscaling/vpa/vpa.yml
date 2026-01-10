@@ -1,0 +1,15 @@
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata: 
+  name: apache-vpa
+  labels: 
+    app: apache-vpa
+    env: devops
+  namespace: apache
+spec: 
+  targetRef: 
+    name: apache-deployment
+    apiVersion: apps/v1
+    kind: Deployment
+  updatePolicy: 
+    updateMode: "Auto"

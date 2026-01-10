@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata: 
+  name: apache-service
+  labels: 
+    app: apache
+    env: devops
+  namespace: apache
+spec: 
+  type: ClusterIP
+  selector: 
+    app: apache
+  ports: 
+    - name: myport
+      protocol: TCP
+      port: 80
+      targetPort: 80
