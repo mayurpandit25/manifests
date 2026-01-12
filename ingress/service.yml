@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-svc-home
+spec:
+  selector:
+    app: cbz-home
+  ports:
+  - port: 80
+    targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-svc-mobile
+spec:
+  selector:
+    app: cbz-mobile
+  ports:
+  - port: 80
+    targetPort: 80
+

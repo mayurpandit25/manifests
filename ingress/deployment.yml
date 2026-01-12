@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cbz-home
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cbz-home
+  template:
+    metadata:
+      labels:
+        app: cbz-home
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cbz-mobile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cbz-mobile
+  template:
+    metadata:
+      labels:
+        app: cbz-mobile
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:latest
+        ports:
+        - containerPort: 80
+
