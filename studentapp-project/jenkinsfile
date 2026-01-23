@@ -15,15 +15,15 @@ pipeline {
         stage (checkout code) {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/mayurpandit25/practice.git'
+                    url: 'https://github.com/mayurpandit25/manifests.git'
             }
         }
 
         stage (docker build) {
             steps {
                 sh '''
-                docker build -t $DOCKERHUB_USER/$APP_NAME:latest studentapp/app
-                docker build -t $DOCKERHUB_USER/$DB_NAME:latest studentapp/db
+                docker build -t $DOCKERHUB_USER/$APP_NAME:latest studentapp-project/app
+                docker build -t $DOCKERHUB_USER/$DB_NAME:latest studentapp-project/db
                 '''
             }
         }
