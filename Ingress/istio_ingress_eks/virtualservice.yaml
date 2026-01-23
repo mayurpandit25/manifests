@@ -1,36 +1,40 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
-metadata:
+metadata: 
   name: app-routing
-spec:
-  hosts:
+spec: 
+  hosts: 
   - "*"
   gateways:
   - app-gateway
   http:
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        host: my-svc-home
-        port:
-          number: 80
-
-  - match:
-    - uri:
+  - match: 
+    - uri: 
         prefix: /mobile
-    route:
-    - destination:
+    rewrite:
+      uri: /
+    route: 
+    - destination: 
         host: my-svc-mobile
-        port:
+        port: 
           number: 80
 
   - match:
     - uri:
         prefix: /laptop
-    route:
-    - destination:
+    rewrite:
+      uri: /
+    route: 
+    - destination: 
         host: my-svc-laptop
-        port:
+        port: 
           number: 8080
+
+  - match: 
+    - uri: 
+        prefix: /
+    route: 
+    - destination: 
+        host: my-svc-home
+        port: 
+          number: 80
