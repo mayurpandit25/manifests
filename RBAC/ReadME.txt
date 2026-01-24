@@ -59,4 +59,16 @@ rules:
 4.kubectl auth can-i delete pods --as=system:serviceaccount:apache:apache-user -n apache
   no
 
------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------
+
+IF I WANT TO SEE THE PODS / DEPLOYMENTS / SERVICE USING THE USER
+
+1.kubectl get pods -n apache --as=system:serviceaccount:apache:apache-user
+
+2.kubectl get deployments -n apache --as=system:serviceaccount:apache:apache-user
+
+3.kubectl get services -n apache --as=system:serviceaccount:apache:apache-user
+
+4.kubectl delete pod apache-deployment -n apache --as=system:serviceaccount:apache:apache-user
+
+---------------------------------------------------------------------------------------------------
