@@ -36,3 +36,15 @@ kubectl config use-context mayur-context
 3.kubectl get deployments
 
 ===================================================================================================================================================
+
+Notes:-
+
+1.In that scenario our admin user is the minikube so if i want to change the permission then u have to switch to the minikube user
+  { kubectl config use-context minikube }
+
+2.commands
+  1.kubectl config use-context minikube ----------> switch to minikube user
+  2.kubectl config current-context ---------------> To check current user
+  3.kubectl config set-context -------------------> To set the context/update
+
+===================================================================================================================================================
