@@ -1,0 +1,25 @@
+RBAC - ( SERVICE ACCOUNT USER )
+
+Points:-
+1.Used for pods / applications / workloads
+2.Identity example:
+  { system:serviceaccount:apache:apache-user }
+3.use within the cluster
+
+simple meaning:-
+  RBAC – (SERVICE ACCOUNT USER) ---> Pods / Apps ---> Access cluster resources
+
+===================================================================================================================================================
+
+RBAC- ( KUBERNETES USER )
+
+Points:-
+1.Used for humans / developers / admins
+2.Identity example:
+  { mayur }
+3.use outside of the cluster
+
+simple meaning:-
+RBAC – (KUBERNETES USER) ----> Humans ---> Manage cluster using kubectl
+
+===================================================================================================================================================
