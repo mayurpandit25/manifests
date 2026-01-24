@@ -1,5 +1,6 @@
 TESTING COMMANDS:-
 
+1.kubectl apply -f .
 1.kubectl auth can-i get pods --as=system:serviceaccount:apache:apache-user -n apache
 2.kubectl auth can-i get deployments --as=system:serviceaccount:apache:apache-user -n apache
 
