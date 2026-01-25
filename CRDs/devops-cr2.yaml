@@ -1,0 +1,9 @@
+apiVersion: mayur.com/v1
+kind: DevOpsBatch
+metadata: 
+  name: batch-2
+spec: 
+  name: DevOps batch-2
+  duration: 3 months
+  platform: mayur.com
+  mode: Live/Recorded
