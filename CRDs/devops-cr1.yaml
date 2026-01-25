@@ -2,6 +2,7 @@ apiVersion: mayur.com/v1
 kind: DevOpsBatch
 metadata: 
   name: batch-1
+  namespace: devops-batch
 spec: 
   name: DevOps batch-1
   duration: 3 months
