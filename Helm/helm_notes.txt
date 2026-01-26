@@ -1,0 +1,99 @@
+Helm & Helm Chart
+
+1.its a tool that automates the creation, packaging, configuration, deployment of k8s application by combining your configuration files into a single reusable package.
+2.helm chart helps you to define, install, even upgrade the most complex Kubernetes applications.
+
+=======================================================================================================================================================================
+
+INSTALLATION OF HELM
+
+$ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-4
+$ chmod 700 get_helm.sh
+$ ./get_helm.sh
+$ helm version
+
+=======================================================================================================================================================================
+
+CREATING OUR OWN HELM CHART ==>> (APACHE)
+
+1.helm create apache-helm
+2.cd apache-helm
+3.ls
+  chart.yaml charts templates values.yaml
+
+All manifests files are stored in the templates
+1.deployment.yaml
+2.service.yaml
+3.ingress.yaml
+4.hpa.yaml
+
+4.All values are define in values.yaml
+replicaCount: 2
+repository: httpd
+tag: "2.4"
+port: 80
+targetPort: 80
+
+5.All info about the packages are stored in chart.yaml
+
+6.cd ..
+7.helm package apache-helm
+8.helm install dev-apache apache-helm
+
+9.kubectl get pods
+10.kubectl get svc
+11.kubectl get deployments
+
+12.helm uninstall dev-apache
+
+=======================================================================================================================================================================
+
+IF WE WANT TO ASSIGN A NAMESPACE TO A CHART:-
+
+1.helm install dev-apache apache-helm -n dev-apache --create-namespace
+2.kubectl get pods -n dev-apache
+
+3.helm install prod-apache apache-helm -n prod-apache --create-namespace
+4.kubectl get pods -n prod-apache
+
+=======================================================================================================================================================================
+
+IF WE WANT TO SCALE THE REPLICAS FOR THE PROD-APACHE:-
+
+1.helm upgrade prod-apache apache-helm -n prod-apache --set replicaCount=3
+
+
+IF WE WANT TO ROLLBACK:-
+
+1.helm history prod-apache -n prod-apache
+
+2.helm rollback prod-apache 1 -n prod-apache
+3.kubectl get pods -n prod-apache
+
+=======================================================================================================================================================================
+
+CREATE A CHART FOR THE APPLICATION ==> (STUDENTAPP)
+
+1.helm create studentapp
+2.cd studentapp
+3.vim templates/service.yaml
+  add one line {{ .Values.service.targetPort }}
+4.vim values.yaml
+replicaCount: 2
+repository: mayurpandit25/student-app
+tag: "latest"
+port: 8080
+targetPort: 8080
+
+5.cd ..
+6.helm package studentapp
+7.helm install dev-studentapp studentapp -n dev-student --create-namespace
+
+8.kubectl get pods -n dev-student
+9.kubectl get svc -n dev-student
+
+10.kubectl port-forward svc/dev-studentapp 8080:8080 --address=0.0.0.0 -n dev-student
+
+<http://<public_ip:8080>
+
+=======================================================================================================================================================================
