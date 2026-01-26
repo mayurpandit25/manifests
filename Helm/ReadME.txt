@@ -17,3 +17,4 @@ helm rollback studentapp 1 -n student
 
 Note:-
 when package studentapp we get { studentapp-0.1.0.tgz } we can push these into the helm repo.
+when deployed with helm only change the values.yaml and add manifests in the template folder
