@@ -61,4 +61,41 @@ spec:
         resources:
           requests:
             storage: 5Gi
+--------------------------------------------------------------------------------
 
+Without service yaml:-
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    env: devops
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      name: my-ss-pod
+      labels:
+        app: mysql
+        env: devops
+    spec:
+      containers:
+        - name: mysqlcontainer
+          image: mysql:latest
+          ports:
+            - name: myport
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: admin
+            - name: MYSQL_USER
+              value: admin
+            - name: MYSQL_PASSWORD
+              value: admin
+            - name: MYSQL_DATABASE
+              value: student_data
