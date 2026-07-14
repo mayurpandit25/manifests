@@ -21,30 +21,68 @@ CREATING OUR OWN HELM CHART ==>> (APACHE)
 3.ls
   chart.yaml charts templates values.yaml
 
-All manifests files are stored in the templates
+----------------------------------------------------------------
+
+All manifests files are stored in the templates/
+
 1.deployment.yaml
 2.service.yaml
 3.ingress.yaml
 4.hpa.yaml
 
+----------------------------------------------------------------
+
 4.All values are define in values.yaml
+
 replicaCount: 2
-repository: httpd
-tag: "2.4"
-port: 80
-targetPort: 80
+
+image:
+  repository: httpd
+  tag: "2.4"
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 80
+  nodePort: 30080
+
+----------------------------------------------------------------
+
+5.Change in the templates/service.yaml file 
+
+1.add nodeport section below name section 
+   {{- if eq .Values.service.type "NodePort" }}
+   nodePort: {{ .Values.service.nodePort }}
+   {{- end }}
+
+----------------------------------------------------------------
 
 5.All info about the packages are stored in chart.yaml
 
+----------------------------------------------------------------
+
 6.cd ..
-7.helm package apache-helm
-8.helm install dev-apache apache-helm
+
+7.helm lint apache-helm   ------------#To detect YAML syntax errors and template issues before deployment.
+8.helm template dev-apache apache-helm  -------#Preview the Generated Manifests
+7.helm package apache-helm -----------#Generates a compressed .tgz file that can be shared or uploaded to a Helm repository
+8.helm install dev-apache apache-helm ---------#To deploy the application into the Kubernetes cluster.
 
 9.kubectl get pods
 10.kubectl get svc
 11.kubectl get deployments
 
-12.helm uninstall dev-apache
+12.helm upgrade dev-apache apache-helm --------#Updates the existing Helm release with the latest chart configuration.
+13.helm list ----------------------#To see all Helm releases installed in the current namespace.
+14.helm history dev-apache --------#To check the history of revisions
+14.helm status dev-apache ---------#To inspect the current state of a Helm release.
+15.helm get values dev-apache -----#To check which values were used during installation or upgrade.
+
+TO ROLL-BACK 
+1.helm rollback dev-apache 1 ------#Rollback to revision 1
+2.helm history dev-apache ---------#To check all the history of dev-apache revision
+
+12.helm uninstall dev-apache ------#To remove the application from the Kubernetes cluster.
 
 =======================================================================================================================================================================
 
